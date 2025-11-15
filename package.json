@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "kambaz-node-server-app",
   "version": "1.0.0",
   "description": "Node.js HTTP web server for the Kambaz application",
@@ -10,5 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^5.1.0"
-  }
+  },
+  "start": "node index.js"
 }
