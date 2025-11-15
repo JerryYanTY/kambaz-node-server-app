@@ -1,0 +1,14 @@
+{
+  "name": "kambaz-node-server-app",
+  "version": "1.0.0",
+  "description": "Node.js HTTP web server for the Kambaz application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tianyuan Yan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
