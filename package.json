@@ -10,6 +10,7 @@
   "author": "Tianyuan Yan",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0"
   },
   "start": "node index.js"
