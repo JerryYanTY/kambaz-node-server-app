@@ -9,7 +9,7 @@ import session from "express-session";
 
 import CourseRoutes from "./Kambaz/Courses/routes.js";
 import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
-import ModulesRoutes from "./Modules/routes.js";
+import ModulesRoutes from "./Kambaz/Modules/routes.js";
 import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
 
 
