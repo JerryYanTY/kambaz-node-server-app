@@ -13,9 +13,16 @@ export default function CoursesDao(db) {
     );
     return enrolledCourses;
   }
+  function createCourse(course) {
+    const newCourse = { ...course, _id: uuidv4() };
+    db.courses = [...db.courses, newCourse];
+    return newCourse;
+  }
+  
   return {
     findAllCourses,
     findCoursesForEnrolledUser,
+    createCourse,
   };
 }
 
