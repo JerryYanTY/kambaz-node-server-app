@@ -19,6 +19,11 @@ export default function EnrollmentsDao(db) {
     );
     return { status: "ok" };
   }
+  
+  function deleteEnrollmentsByUser(userId) {
+    db.enrollments = db.enrollments.filter((enrollment) => enrollment.user !== userId);
+    return { status: "ok" };
+  }
   function findEnrollmentsForCourse(courseId) {
     return db.enrollments.filter((enrollment) => enrollment.course === courseId);
   }
@@ -28,6 +33,7 @@ export default function EnrollmentsDao(db) {
   return {
     enrollUserInCourse,
     unenrollUserFromCourse,
+    deleteEnrollmentsByUser,
     findEnrollmentsForCourse,
     findEnrollmentsForUser,
   };

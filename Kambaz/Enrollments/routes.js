@@ -18,6 +18,7 @@ export default function EnrollmentRoutes(app, db) {
     res.json(enrollment);
   };
 
+  
   const unenrollFromCourse = (req, res) => {
     let { userId } = req.params;
     const { courseId } = req.params;
