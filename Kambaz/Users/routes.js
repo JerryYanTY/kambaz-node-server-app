@@ -5,10 +5,11 @@ export default function UserRoutes(app) {
   const dao = UsersDao();
   const enrollmentsDao = EnrollmentsDao();
 
-  const createUser = (req, res) => {
-    const newUser = dao.createUser(req.body);
-    res.json(newUser);
+  const createUser = async (req, res) => {
+    const user = await dao.createUser(req.body);
+    res.json(user);
   };
+
   const deleteUser = (req, res) => {
     const { userId } = req.params;
     enrollmentsDao.deleteEnrollmentsByUser(userId);
