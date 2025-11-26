@@ -6,12 +6,15 @@ import db from "./Kambaz/Database/index.js";
 import UserRoutes from "./Kambaz/Users/routes.js";
 import "dotenv/config";
 import session from "express-session";
+import mongoose from "mongoose";
 
 import CourseRoutes from "./Kambaz/Courses/routes.js";
 import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
 import ModulesRoutes from "./Kambaz/Modules/routes.js";
 import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
 
+const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING || "mongodb://localhost/kambaz";
+mongoose.connect(CONNECTION_STRING);
 
 const app = express();
 app.use(
