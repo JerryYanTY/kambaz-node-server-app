@@ -1,30 +1,31 @@
 import { v4 as uuidv4 } from "uuid";
+import model from "./model.js";
+import assignmentsSeed from "../Database/assignments.js";
 
-export default function AssignmentsDao(db) {
-  const findAssignmentsForCourse = (courseId) =>
-    db.assignments.filter((assignment) => assignment.course === courseId);
+export default function AssignmentsDao(db = {}) {
+  const memoryAssignments = db.assignments || assignmentsSeed || [];
 
-  const findAssignmentById = (assignmentId) =>
-    db.assignments.find((assignment) => assignment._id === assignmentId);
+  const findAssignmentsForCourse = async (courseId) => {
+    const assignments = await model.find({ course: courseId });
+    if (assignments.length) return assignments;
+    return memoryAssignments.filter((assignment) => assignment.course === courseId);
+  };
 
-  const createAssignment = (assignment) => {
+  const findAssignmentById = async (assignmentId) =>
+    model.findById(assignmentId) ||
+    memoryAssignments.find((assignment) => assignment._id === assignmentId);
+
+  const createAssignment = async (assignment) => {
     const newAssignment = { ...assignment, _id: uuidv4() };
-    db.assignments = [...db.assignments, newAssignment];
-    return newAssignment;
+    return model.create(newAssignment);
   };
 
-  const deleteAssignment = (assignmentId) => {
-    db.assignments = db.assignments.filter(
-      (assignment) => assignment._id !== assignmentId
-    );
-    return { status: "ok" };
-  };
+  const deleteAssignment = (assignmentId) =>
+    model.deleteOne({ _id: assignmentId });
 
-  const updateAssignment = (assignmentId, assignmentUpdates) => {
-    const assignment = db.assignments.find((a) => a._id === assignmentId);
-    if (!assignment) return null;
-    Object.assign(assignment, assignmentUpdates);
-    return assignment;
+  const updateAssignment = async (assignmentId, assignmentUpdates) => {
+    await model.updateOne({ _id: assignmentId }, { $set: assignmentUpdates });
+    return model.findById(assignmentId);
   };
 
   return {

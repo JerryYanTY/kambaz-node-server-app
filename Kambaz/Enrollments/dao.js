@@ -1,35 +1,30 @@
 import { v4 as uuidv4 } from "uuid";
-export default function EnrollmentsDao(db) {
-  function enrollUserInCourse(userId, courseId) {
-    const { enrollments } = db;
-    const alreadyEnrolled = enrollments.some(
-      (enrollment) => enrollment.user === userId && enrollment.course === courseId
-    );
-    if (alreadyEnrolled) return enrollments.find(
-      (enrollment) => enrollment.user === userId && enrollment.course === courseId
-    );
-    const newEnrollment = { _id: uuidv4(), user: userId, course: courseId };
-    enrollments.push(newEnrollment);
-    return newEnrollment;
-  }
-  function unenrollUserFromCourse(userId, courseId) {
-    const { enrollments } = db;
-    db.enrollments = enrollments.filter(
-      (enrollment) => !(enrollment.user === userId && enrollment.course === courseId)
-    );
-    return { status: "ok" };
-  }
-  
-  function deleteEnrollmentsByUser(userId) {
-    db.enrollments = db.enrollments.filter((enrollment) => enrollment.user !== userId);
-    return { status: "ok" };
-  }
-  function findEnrollmentsForCourse(courseId) {
-    return db.enrollments.filter((enrollment) => enrollment.course === courseId);
-  }
-  function findEnrollmentsForUser(userId) {
-    return db.enrollments.filter((enrollment) => enrollment.user === userId);
-  }
+import model from "./model.js";
+
+export default function EnrollmentsDao() {
+  const enrollUserInCourse = async (userId, courseId, extra = {}) => {
+    const existing = await model.findOne({ user: userId, course: courseId });
+    if (existing) return existing;
+    const newEnrollment = {
+      _id: uuidv4(),
+      user: userId,
+      course: courseId,
+      ...extra,
+    };
+    return model.create(newEnrollment);
+  };
+
+  const unenrollUserFromCourse = (userId, courseId) =>
+    model.deleteOne({ user: userId, course: courseId });
+
+  const deleteEnrollmentsByUser = (userId) =>
+    model.deleteMany({ user: userId });
+
+  const findEnrollmentsForCourse = (courseId) =>
+    model.find({ course: courseId });
+
+  const findEnrollmentsForUser = (userId) => model.find({ user: userId });
+
   return {
     enrollUserInCourse,
     unenrollUserFromCourse,

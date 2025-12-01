@@ -1,4 +1,4 @@
-import courses from "./courses.js";
+import courses from "./courses-modules-lessons.js";
 import modules from "./modules.js";
 import assignments from "./assignments.js";
 import users from "./users.js";
