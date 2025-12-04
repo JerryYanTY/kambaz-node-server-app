@@ -1,79 +1,555 @@
 export default [
-    {
-      "_id": "1234",
-      "name": "Full Stack software developer",
-      "number": "CS1234",
-      "startDate": "2023-01-10",
-      "endDate": "2023-05-15",
-      "department": "CS",
-      "credits": 4,
-      "image": "/images/reactjs.jpg",
-      "description": "Build complete web apps from front end to back end: design REST APIs, wire up databases, and ship responsive UIs. Youâ€™ll practice modern tooling, deployment, and teamwork to deliver production-ready features."
-    },
-    {
-      "_id": "4000",
-      "name": "Intro to Python",
-      "number": "CS4000",
-      "startDate": "2023-01-10",
-      "endDate": "2023-05-15",
-      "department": "CS",
-      "credits": 3,
-      "image": "/images/python.jpg",
-      "description": "Learn Python fundamentalsâ€”syntax, data structures, functions, and modulesâ€”then apply them to scripting, simple data analysis, and automation tasks using real-world exercises."
-    },
-    {
-      "_id": "4001",
-      "name": "Intro to CPP",
-      "number": "CS4001",
-      "startDate": "2023-01-10",
-      "endDate": "2023-05-15",
-      "department": "CS",
-      "credits": 3,
-      "image": "/images/cpp.jpg",
-      "description": "Explore C++ basics including types, control flow, functions, classes, and the STL. Lab work emphasizes performance, memory management, and writing clean, idiomatic C++."
-    },
-    {
-      "_id": "4002",
-      "name": "Intro to C#",
-      "number": "CS4002",
-      "startDate": "2023-01-10",
-      "endDate": "2023-05-15",
-      "department": "CS",
-      "credits": 3,
-      "image": "/images/cs.jpg",
-      "description": "Get started with C# and .NET: object-oriented design, LINQ, async programming, and building small console and desktop apps that follow best practices."
-    },
-    {
-      "_id": "4003",
-      "name": "Intro to Java",
-      "number": "CS4003",
-      "startDate": "2023-01-10",
-      "endDate": "2023-05-15",
-      "department": "CS",
-      "credits": 3,
-      "image": "/images/java.jpg",
-      "description": "Learn Java essentialsâ€”OOP, collections, exceptions, and testingâ€”then apply them to build small backend services and command-line tools using standard libraries."
-    },
-    {
-      "_id": "4004",
-      "name": "Intro to Ruby",
-      "number": "CS4004",
-      "startDate": "2023-01-10",
-      "endDate": "2023-05-15",
-      "department": "CS",
-      "credits": 3,
-      "image": "/images/ruby.jpg",
-      "description": "Discover Rubyâ€™s expressive syntax and conventions. Youâ€™ll practice scripting, test-driven development, and quick prototypes that highlight Rubyâ€™s developer ergonomics."
-    },
-    {
-      "_id": "4005",
-      "name": "Intro to swift",
-      "number": "CS4005",
-      "startDate": "2023-01-10",
-      "endDate": "2023-05-15",
-      "department": "CS",
-      "credits": 3,
-      "image": "/images/swift.jpg",
-      "description": "Start building with Swift: language basics, optionals, structs vs. classes, and protocols. Projects focus on writing safe, modern code ready for iOS/macOS development."
-    }
-  ]
+  {
+    "_id": "1234",
+    "name": "Full Stack software developer",
+    "number": "CS1234",
+    "startDate": "2023-01-10",
+    "endDate": "2023-05-15",
+    "department": "CS",
+    "credits": 4,
+    "image": "/images/reactjs.jpg",
+    "description": "Build complete web apps from front end to back end: design REST APIs, wire up databases, and ship responsive UIs. YouA��,��,�ll practice modern tooling, deployment, and teamwork to deliver production-ready features.",
+    "modules": [
+      {
+        "_id": "M1234-1",
+        "name": "Frontend Foundations",
+        "description": "Set up tooling and build production-ready UIs with components, routing, and state.",
+        "lessons": [
+          {
+            "_id": "L1234-1-1",
+            "name": "Project Setup & Tooling",
+            "description": "Initialize the app, configure scripts, and establish a clean project structure."
+          },
+          {
+            "_id": "L1234-1-2",
+            "name": "Components, Props & State",
+            "description": "Create reusable components and manage interactive state and events."
+          },
+          {
+            "_id": "L1234-1-3",
+            "name": "Routing & Data Fetching",
+            "description": "Navigate between screens and load data from APIs."
+          }
+        ]
+      },
+      {
+        "_id": "M1234-2",
+        "name": "Backend & APIs",
+        "description": "Design REST endpoints, connect databases, and integrate the frontend with services.",
+        "lessons": [
+          {
+            "_id": "L1234-2-1",
+            "name": "REST API Design",
+            "description": "Plan routes, resources, and payload shapes for robust services."
+          },
+          {
+            "_id": "L1234-2-2",
+            "name": "Persistence Layer",
+            "description": "Model data and implement CRUD with a database."
+          },
+          {
+            "_id": "L1234-2-3",
+            "name": "Auth & Deployment",
+            "description": "Add authentication and ship your app to production."
+          }
+        ]
+      },
+      {
+        "_id": "M1234-3",
+        "name": "Capstone Project",
+        "description": "Scope, build, and present a capstone that integrates course skills.",
+        "lessons": [
+          {
+            "_id": "L1234-3-1",
+            "name": "Review & Planning",
+            "description": "Set scope, outcomes, and success criteria."
+          },
+          {
+            "_id": "L1234-3-2",
+            "name": "Build & Iterate",
+            "description": "Implement features, collect feedback, and refine."
+          },
+          {
+            "_id": "L1234-3-3",
+            "name": "Demo & Reflection",
+            "description": "Present work, discuss trade-offs, and next steps."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "4000",
+    "name": "Intro to Python",
+    "number": "CS4000",
+    "startDate": "2023-01-10",
+    "endDate": "2023-05-15",
+    "department": "CS",
+    "credits": 3,
+    "image": "/images/python.jpg",
+    "description": "Learn Python fundamentalsA��,��??syntax, data structures, functions, and modulesA��,��??then apply them to scripting, simple data analysis, and automation tasks using real-world exercises.",
+    "modules": [
+      {
+        "_id": "M4000-1",
+        "name": "Python Basics",
+        "description": "Core Python syntax, data types, and control flow.",
+        "lessons": [
+          {
+            "_id": "L4000-1-1",
+            "name": "Syntax & Variables",
+            "description": "Write your first scripts and understand PythonA��,��,�s types."
+          },
+          {
+            "_id": "L4000-1-2",
+            "name": "Control Flow",
+            "description": "Use conditionals and loops to direct program behavior."
+          },
+          {
+            "_id": "L4000-1-3",
+            "name": "Functions & Modules",
+            "description": "Encapsulate logic and organize code with modules."
+          }
+        ]
+      },
+      {
+        "_id": "M4000-2",
+        "name": "Data & Libraries",
+        "description": "Work with files, collections, and popular Python libraries.",
+        "lessons": [
+          {
+            "_id": "L4000-2-1",
+            "name": "Files & Exceptions",
+            "description": "Read/write files and handle runtime errors safely."
+          },
+          {
+            "_id": "L4000-2-2",
+            "name": "Collections & Comprehensions",
+            "description": "Use lists, dicts, sets efficiently with idiomatic patterns."
+          },
+          {
+            "_id": "L4000-2-3",
+            "name": "Intro to Popular Libraries",
+            "description": "Get hands-on with requests, csv, and pathlib."
+          }
+        ]
+      },
+      {
+        "_id": "M4000-3",
+        "name": "Capstone Project",
+        "description": "Scope, build, and present a capstone that integrates course skills.",
+        "lessons": [
+          {
+            "_id": "L4000-3-1",
+            "name": "Review & Planning",
+            "description": "Set scope, outcomes, and success criteria."
+          },
+          {
+            "_id": "L4000-3-2",
+            "name": "Build & Iterate",
+            "description": "Implement features, collect feedback, and refine."
+          },
+          {
+            "_id": "L4000-3-3",
+            "name": "Demo & Reflection",
+            "description": "Present work, discuss trade-offs, and next steps."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "4001",
+    "name": "Intro to CPP",
+    "number": "CS4001",
+    "startDate": "2023-01-10",
+    "endDate": "2023-05-15",
+    "department": "CS",
+    "credits": 3,
+    "image": "/images/cpp.jpg",
+    "description": "Explore C++ basics including types, control flow, functions, classes, and the STL. Lab work emphasizes performance, memory management, and writing clean, idiomatic C++.",
+    "modules": [
+      {
+        "_id": "M4001-1",
+        "name": "C++ Fundamentals",
+        "description": "Types, functions, and program structure in modern C++.",
+        "lessons": [
+          {
+            "_id": "L4001-1-1",
+            "name": "Toolchain & Basics",
+            "description": "Compile, link, and run C++ programs; understand the build flow."
+          },
+          {
+            "_id": "L4001-1-2",
+            "name": "Functions & Control Flow",
+            "description": "Structure logic with functions, conditionals, and loops."
+          },
+          {
+            "_id": "L4001-1-3",
+            "name": "Pointers & References",
+            "description": "Understand memory semantics and parameter passing."
+          }
+        ]
+      },
+      {
+        "_id": "M4001-2",
+        "name": "STL & OOP",
+        "description": "Use the Standard Library and object-oriented design effectively.",
+        "lessons": [
+          {
+            "_id": "L4001-2-1",
+            "name": "STL Containers & Iterators",
+            "description": "Work with vector, map, and algorithms."
+          },
+          {
+            "_id": "L4001-2-2",
+            "name": "Classes & Inheritance",
+            "description": "Design classes, apply inheritance and encapsulation."
+          },
+          {
+            "_id": "L4001-2-3",
+            "name": "RAII & Resource Safety",
+            "description": "Manage resources and avoid leaks with RAII."
+          }
+        ]
+      },
+      {
+        "_id": "M4001-3",
+        "name": "Capstone Project",
+        "description": "Scope, build, and present a capstone that integrates course skills.",
+        "lessons": [
+          {
+            "_id": "L4001-3-1",
+            "name": "Review & Planning",
+            "description": "Set scope, outcomes, and success criteria."
+          },
+          {
+            "_id": "L4001-3-2",
+            "name": "Build & Iterate",
+            "description": "Implement features, collect feedback, and refine."
+          },
+          {
+            "_id": "L4001-3-3",
+            "name": "Demo & Reflection",
+            "description": "Present work, discuss trade-offs, and next steps."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "4002",
+    "name": "Intro to C#",
+    "number": "CS4002",
+    "startDate": "2023-01-10",
+    "endDate": "2023-05-15",
+    "department": "CS",
+    "credits": 3,
+    "image": "/images/cs.jpg",
+    "description": "Get started with C# and .NET: object-oriented design, LINQ, async programming, and building small console and desktop apps that follow best practices.",
+    "modules": [
+      {
+        "_id": "M4002-1",
+        "name": "C# Essentials",
+        "description": "C# syntax, types, and object-oriented fundamentals.",
+        "lessons": [
+          {
+            "_id": "L4002-1-1",
+            "name": "Projects & Types",
+            "description": "Create projects and understand value vs reference types."
+          },
+          {
+            "_id": "L4002-1-2",
+            "name": "Methods & Exceptions",
+            "description": "Write methods and handle exceptions cleanly."
+          },
+          {
+            "_id": "L4002-1-3",
+            "name": "Classes & Interfaces",
+            "description": "Model behavior with classes, interfaces, and properties."
+          }
+        ]
+      },
+      {
+        "_id": "M4002-2",
+        "name": ".NET & LINQ",
+        "description": "Work with the .NET runtime, collections, and LINQ queries.",
+        "lessons": [
+          {
+            "_id": "L4002-2-1",
+            "name": "Collections & Generics",
+            "description": "Use List<T>, Dictionary<TKey,TValue>, and generics."
+          },
+          {
+            "_id": "L4002-2-2",
+            "name": "LINQ Fundamentals",
+            "description": "Query in-memory data with LINQ operators."
+          },
+          {
+            "_id": "L4002-2-3",
+            "name": "Async & Tasks",
+            "description": "Run asynchronous work with async/await."
+          }
+        ]
+      },
+      {
+        "_id": "M4002-3",
+        "name": "Capstone Project",
+        "description": "Scope, build, and present a capstone that integrates course skills.",
+        "lessons": [
+          {
+            "_id": "L4002-3-1",
+            "name": "Review & Planning",
+            "description": "Set scope, outcomes, and success criteria."
+          },
+          {
+            "_id": "L4002-3-2",
+            "name": "Build & Iterate",
+            "description": "Implement features, collect feedback, and refine."
+          },
+          {
+            "_id": "L4002-3-3",
+            "name": "Demo & Reflection",
+            "description": "Present work, discuss trade-offs, and next steps."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "4003",
+    "name": "Intro to Java",
+    "number": "CS4003",
+    "startDate": "2023-01-10",
+    "endDate": "2023-05-15",
+    "department": "CS",
+    "credits": 3,
+    "image": "/images/java.jpg",
+    "description": "Learn Java essentialsA��,��??OOP, collections, exceptions, and testingA��,��??then apply them to build small backend services and command-line tools using standard libraries.",
+    "modules": [
+      {
+        "_id": "M4003-1",
+        "name": "Java Basics",
+        "description": "Write Java programs with strong OOP foundations.",
+        "lessons": [
+          {
+            "_id": "L4003-1-1",
+            "name": "JDK & Syntax",
+            "description": "Install the JDK and learn core Java syntax."
+          },
+          {
+            "_id": "L4003-1-2",
+            "name": "Control Flow",
+            "description": "Use conditionals, loops, and switch effectively."
+          },
+          {
+            "_id": "L4003-1-3",
+            "name": "Classes & Objects",
+            "description": "Design classes and use constructors and methods."
+          }
+        ]
+      },
+      {
+        "_id": "M4003-2",
+        "name": "Collections & Testing",
+        "description": "Work with Java collections and write unit tests.",
+        "lessons": [
+          {
+            "_id": "L4003-2-1",
+            "name": "Collections Framework",
+            "description": "Use List, Set, Map and iterate safely."
+          },
+          {
+            "_id": "L4003-2-2",
+            "name": "Exceptions & I/O",
+            "description": "Handle exceptions and read/write files."
+          },
+          {
+            "_id": "L4003-2-3",
+            "name": "JUnit Basics",
+            "description": "Test code with assertions and test fixtures."
+          }
+        ]
+      },
+      {
+        "_id": "M4003-3",
+        "name": "Capstone Project",
+        "description": "Scope, build, and present a capstone that integrates course skills.",
+        "lessons": [
+          {
+            "_id": "L4003-3-1",
+            "name": "Review & Planning",
+            "description": "Set scope, outcomes, and success criteria."
+          },
+          {
+            "_id": "L4003-3-2",
+            "name": "Build & Iterate",
+            "description": "Implement features, collect feedback, and refine."
+          },
+          {
+            "_id": "L4003-3-3",
+            "name": "Demo & Reflection",
+            "description": "Present work, discuss trade-offs, and next steps."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "4004",
+    "name": "Intro to Ruby",
+    "number": "CS4004",
+    "startDate": "2023-01-10",
+    "endDate": "2023-05-15",
+    "department": "CS",
+    "credits": 3,
+    "image": "/images/ruby.jpg",
+    "description": "Discover RubyA��,��,�s expressive syntax and conventions. YouA��,��,�ll practice scripting, test-driven development, and quick prototypes that highlight RubyA��,��,�s developer ergonomics.",
+    "modules": [
+      {
+        "_id": "M4004-1",
+        "name": "Ruby Basics",
+        "description": "Learn Ruby syntax, blocks, and OOP conventions.",
+        "lessons": [
+          {
+            "_id": "L4004-1-1",
+            "name": "Ruby Syntax & Types",
+            "description": "Explore numbers, strings, arrays, and hashes."
+          },
+          {
+            "_id": "L4004-1-2",
+            "name": "Blocks & Iterators",
+            "description": "Use blocks, procs, and enumerables idiomatically."
+          },
+          {
+            "_id": "L4004-1-3",
+            "name": "Classes & Modules",
+            "description": "Apply RubyA��,��,�s object model and modules for mixins."
+          }
+        ]
+      },
+      {
+        "_id": "M4004-2",
+        "name": "Testing & Web Intro",
+        "description": "Write tests and get a taste of Ruby web development.",
+        "lessons": [
+          {
+            "_id": "L4004-2-1",
+            "name": "Minitest/RSpec",
+            "description": "Structure unit tests and practice TDD."
+          },
+          {
+            "_id": "L4004-2-2",
+            "name": "HTTP & Sinatra",
+            "description": "Serve routes and handle requests with Sinatra."
+          },
+          {
+            "_id": "L4004-2-3",
+            "name": "Rails Primer",
+            "description": "Understand MVC and generate your first Rails app."
+          }
+        ]
+      },
+      {
+        "_id": "M4004-3",
+        "name": "Capstone Project",
+        "description": "Scope, build, and present a capstone that integrates course skills.",
+        "lessons": [
+          {
+            "_id": "L4004-3-1",
+            "name": "Review & Planning",
+            "description": "Set scope, outcomes, and success criteria."
+          },
+          {
+            "_id": "L4004-3-2",
+            "name": "Build & Iterate",
+            "description": "Implement features, collect feedback, and refine."
+          },
+          {
+            "_id": "L4004-3-3",
+            "name": "Demo & Reflection",
+            "description": "Present work, discuss trade-offs, and next steps."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "4005",
+    "name": "Intro to swift",
+    "number": "CS4005",
+    "startDate": "2023-01-10",
+    "endDate": "2023-05-15",
+    "department": "CS",
+    "credits": 3,
+    "image": "/images/swift.jpg",
+    "description": "Start building with Swift: language basics, optionals, structs vs. classes, and protocols. Projects focus on writing safe, modern code ready for iOS/macOS development.",
+    "modules": [
+      {
+        "_id": "M4005-1",
+        "name": "Swift Basics",
+        "description": "Master Swift syntax, optionals, and value vs reference types.",
+        "lessons": [
+          {
+            "_id": "L4005-1-1",
+            "name": "Syntax & Optionals",
+            "description": "Declare variables and handle optionals safely."
+          },
+          {
+            "_id": "L4005-1-2",
+            "name": "Structs & Classes",
+            "description": "Compare value vs reference semantics in Swift."
+          },
+          {
+            "_id": "L4005-1-3",
+            "name": "Protocols & Extensions",
+            "description": "Compose behavior and extend types idiomatically."
+          }
+        ]
+      },
+      {
+        "_id": "M4005-2",
+        "name": "iOS Patterns",
+        "description": "Work with app architecture and platform APIs.",
+        "lessons": [
+          {
+            "_id": "L4005-2-1",
+            "name": "UIKit/SwiftUI Primer",
+            "description": "Build simple screens with layout and navigation."
+          },
+          {
+            "_id": "L4005-2-2",
+            "name": "Data & Networking",
+            "description": "Load data from the network and manage app state."
+          },
+          {
+            "_id": "L4005-2-3",
+            "name": "App Lifecycle & Testing",
+            "description": "Understand lifecycle events and write UI tests."
+          }
+        ]
+      },
+      {
+        "_id": "M4005-3",
+        "name": "Capstone Project",
+        "description": "Scope, build, and present a capstone that integrates course skills.",
+        "lessons": [
+          {
+            "_id": "L4005-3-1",
+            "name": "Review & Planning",
+            "description": "Set scope, outcomes, and success criteria."
+          },
+          {
+            "_id": "L4005-3-2",
+            "name": "Build & Iterate",
+            "description": "Implement features, collect feedback, and refine."
+          },
+          {
+            "_id": "L4005-3-3",
+            "name": "Demo & Reflection",
+            "description": "Present work, discuss trade-offs, and next steps."
+          }
+        ]
+      }
+    ]
+  }
+];
