@@ -6,6 +6,8 @@ const courseSchema = new mongoose.Schema({
    number: String,
    credits: Number,
    description: String,
+   image: String,
+   owner: { type: String, ref: "UserModel" },
    modules: [moduleSchema],
  },
  { collection: "courses" }

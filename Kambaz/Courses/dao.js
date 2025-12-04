@@ -7,9 +7,15 @@ export default function CoursesDao(db = {}) {
   const memoryEnrollments = db.enrollments || [];
 
   async function findAllCourses() {
-    const courses = await model.find({}, { name: 1, description: 1, image: 1 });
+    const courses = await model.find({}, { name: 1, description: 1, image: 1, owner: 1 });
     if (courses.length) return courses;
     return memoryCourses;
+  }
+
+  async function findCoursesForOwner(ownerId) {
+    const courses = await model.find({ owner: ownerId });
+    if (courses.length) return courses;
+    return memoryCourses.filter((course) => course.owner === ownerId);
   }
 
   async function findCoursesForEnrolledUser(userId) {
@@ -40,6 +46,7 @@ export default function CoursesDao(db = {}) {
 
   return {
     findAllCourses,
+    findCoursesForOwner,
     findCoursesForEnrolledUser,
     createCourse,
     deleteCourse,

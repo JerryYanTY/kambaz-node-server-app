@@ -11,6 +11,7 @@ export default function CourseRoutes(app) {
   };
   const findCoursesForEnrolledUser = async (req, res) => {
     let { userId } = req.params;
+    let role = null;
     if (userId === "current") {
       const currentUser = req.session["currentUser"];
       if (!currentUser) {
@@ -18,13 +19,35 @@ export default function CourseRoutes(app) {
         return;
       }
       userId = currentUser._id;
+      role = currentUser.role;
+    }
+    if (!role && req.session?.currentUser && req.session.currentUser._id === userId) {
+      role = req.session.currentUser.role;
+    }
+    if (role === "FACULTY" || role === "ADMIN") {
+      const owned = await dao.findCoursesForOwner(userId);
+      if (owned.length) {
+        res.json(owned);
+        return;
+      }
     }
     const courses = await dao.findCoursesForEnrolledUser(userId);
     res.json(courses);
   };
   const createCourse = async (req, res) => {
     const currentUser = req.session["currentUser"];
-    const newCourse = await dao.createCourse(req.body);
+    if (!currentUser) {
+      res.sendStatus(401);
+      return;
+    }
+    if (currentUser.role !== "FACULTY" && currentUser.role !== "ADMIN") {
+      res.sendStatus(403);
+      return;
+    }
+    const newCourse = await dao.createCourse({
+      ...req.body,
+      owner: currentUser._id,
+    });
     await enrollmentsDao.enrollUserInCourse(currentUser._id, newCourse._id);
     res.json(newCourse);
   };
