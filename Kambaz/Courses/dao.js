@@ -7,18 +7,31 @@ export default function CoursesDao(db = {}) {
   const memoryEnrollments = db.enrollments || [];
 
   async function findAllCourses() {
-    return model.find({}, { name: 1, description: 1, image: 1, owner: 1 });
+    const courses = await model.find(
+      {},
+      { name: 1, description: 1, image: 1, owner: 1 }
+    );
+    if (courses.length) return courses;
+    return memoryCourses;
   }
 
   async function findCoursesForOwner(ownerId) {
-    return model.find({ owner: ownerId });
+    const courses = await model.find({ owner: ownerId });
+    if (courses.length) return courses;
+    return memoryCourses.filter((course) => course.owner === ownerId);
   }
 
   async function findCoursesForEnrolledUser(userId) {
     const enrollments = await EnrollmentModel.find({ user: userId });
-    const courseIds = enrollments.map((e) => e.course);
-    if (courseIds.length === 0) return [];
-    return model.find({ _id: { $in: courseIds } });
+    if (enrollments.length) {
+      const courseIds = enrollments.map((e) => e.course);
+      return model.find({ _id: { $in: courseIds } });
+    }
+    // fallback to in-memory seed data
+    const enrolledIds = new Set(
+      memoryEnrollments.filter((e) => e.user === userId).map((e) => e.course)
+    );
+    return memoryCourses.filter((course) => enrolledIds.has(course._id));
   }
 
   function createCourse(course) {
