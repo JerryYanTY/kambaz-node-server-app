@@ -38,17 +38,31 @@ app.use(
     },
   })
 );
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kambaz",
   resave: false,
   saveUninitialized: false,
 };
-if (process.env.SERVER_ENV !== "development") {
+
+// Adjust cookie settings based on environment/origin
+const isProd =
+  (process.env.SERVER_ENV && process.env.SERVER_ENV !== "development") ||
+  process.env.NODE_ENV === "production";
+if (isProd) {
   app.set("trust proxy", 1);
   sessionOptions.proxy = true;
   sessionOptions.cookie = {
     sameSite: "none",
     secure: true,
+  };
+} else {
+  sessionOptions.cookie = {
+    sameSite: "lax",
+    secure: false,
   };
 }
 
