@@ -7,10 +7,7 @@ export default function CoursesDao(db = {}) {
   const memoryEnrollments = db.enrollments || [];
 
   async function findAllCourses() {
-    const courses = await model.find(
-      {},
-      { name: 1, description: 1, image: 1, owner: 1 }
-    );
+    const courses = await model.find({}, { name: 1, description: 1, image: 1, owner: 1 });
     if (courses.length) return courses;
     return memoryCourses;
   }

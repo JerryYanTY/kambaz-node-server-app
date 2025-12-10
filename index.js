@@ -18,24 +18,10 @@ const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING || "mongodb://l
 mongoose.connect(CONNECTION_STRING);
 
 const app = express();
-
-// Support comma-separated client origins for CORS (e.g., prod + local)
-const allowedOrigins = (process.env.CLIENT_URLS ||
-  process.env.CLIENT_URL ||
-  "http://localhost:3000")
-  .split(",")
-  .map((o) => o.trim())
-  .filter(Boolean);
-
 app.use(
   cors({
     credentials: true,
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-      return callback(new Error("Not allowed by CORS"));
-    },
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
   })
 );
 app.use((req, res, next) => {
@@ -58,6 +44,7 @@ if (isProd) {
   sessionOptions.cookie = {
     sameSite: "none",
     secure: true,
+    domain: process.env.SERVER_URL,
   };
 } else {
   sessionOptions.cookie = {

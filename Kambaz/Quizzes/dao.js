@@ -4,14 +4,15 @@ import attemptModel from "./attemptModel.js";
 import quizzesSeed from "../Database/quizzes.js";
 
 export default function QuizzesDao(db = {}) {
-  const seedQuizzes = db.quizzes || quizzesSeed || [];
+  const memoryQuizzes = db.quizzes || quizzesSeed || [];
+  const memoryAttempts = db.quizAttempts || [];
   let seeded = false;
 
   const ensureSeeded = async () => {
     if (seeded) return;
     const count = await quizModel.countDocuments();
-    if (count === 0 && seedQuizzes.length) {
-      await quizModel.insertMany(seedQuizzes);
+    if (count === 0 && memoryQuizzes.length) {
+      await quizModel.insertMany(memoryQuizzes);
     }
     seeded = true;
   };
@@ -19,12 +20,15 @@ export default function QuizzesDao(db = {}) {
   const findQuizzesForCourse = async (courseId) => {
     await ensureSeeded();
     const quizzes = await quizModel.find({ course: courseId });
-    return quizzes;
+    if (quizzes.length) return quizzes;
+    return memoryQuizzes.filter((quiz) => quiz.course === courseId);
   };
 
   const findQuizById = async (quizId) => {
     await ensureSeeded();
-    return quizModel.findById(quizId);
+    const quiz = await quizModel.findById(quizId);
+    if (quiz) return quiz;
+    return memoryQuizzes.find((quiz) => quiz._id === quizId);
   };
 
   const createQuiz = async (quiz) => {
@@ -50,7 +54,12 @@ export default function QuizzesDao(db = {}) {
       lockQuestionsAfterAnswering:
         quiz.lockQuestionsAfterAnswering ?? false,
     };
-    return quizModel.create(newQuiz);
+    try {
+      return await quizModel.create(newQuiz);
+    } catch (e) {
+      memoryQuizzes.push(newQuiz);
+      return newQuiz;
+    }
   };
 
   const updateQuiz = async (quizId, quizUpdates) => {
@@ -58,21 +67,45 @@ export default function QuizzesDao(db = {}) {
       _id: q._id || uuidv4(),
       ...q,
     }));
-    await quizModel.updateOne(
-      { _id: quizId },
-      {
-        $set: {
-          ...quizUpdates,
-          questions: sanitizedQuestions,
-        },
-      }
-    );
-    return quizModel.findById(quizId);
+    try {
+      await quizModel.updateOne(
+        { _id: quizId },
+        {
+          $set: {
+            ...quizUpdates,
+            questions: sanitizedQuestions,
+          },
+        }
+      );
+      const dbQuiz = await quizModel.findById(quizId);
+      if (dbQuiz) return dbQuiz;
+    } catch (e) {
+      // fall through to memory
+    }
+    const idx = memoryQuizzes.findIndex((q) => q._id === quizId);
+    if (idx >= 0) {
+      memoryQuizzes[idx] = { ...memoryQuizzes[idx], ...quizUpdates, questions: sanitizedQuestions };
+      return memoryQuizzes[idx];
+    }
+    return null;
   };
 
   const deleteQuiz = async (quizId) => {
-    await attemptModel.deleteMany({ quiz: quizId });
-    return quizModel.deleteOne({ _id: quizId });
+    try {
+      await attemptModel.deleteMany({ quiz: quizId });
+      return await quizModel.deleteOne({ _id: quizId });
+    } catch (e) {
+      const idx = memoryQuizzes.findIndex((q) => q._id === quizId);
+      if (idx >= 0) {
+        memoryQuizzes.splice(idx, 1);
+      }
+      for (let i = memoryAttempts.length - 1; i >= 0; i -= 1) {
+        if (memoryAttempts[i].quiz === quizId) {
+          memoryAttempts.splice(i, 1);
+        }
+      }
+      return { acknowledged: true, deletedCount: idx >= 0 ? 1 : 0 };
+    }
   };
 
   const gradeAttempt = (quiz, answers) => {
@@ -127,17 +160,28 @@ export default function QuizzesDao(db = {}) {
       maxPoints,
       submittedAt: new Date(),
     };
-    return attemptModel.create(attempt);
+    try {
+      return await attemptModel.create(attempt);
+    } catch (e) {
+      memoryAttempts.push(attempt);
+      return attempt;
+    }
   };
 
   const findAttemptsForQuiz = async (quizId) => {
-    return attemptModel.find({ quiz: quizId });
+    const attempts = await attemptModel.find({ quiz: quizId });
+    if (attempts.length) return attempts;
+    return memoryAttempts.filter((a) => a.quiz === quizId);
   };
 
   const findAttemptsForQuizAndUser = async (quizId, userId) => {
-    return attemptModel
+    const attempts = await attemptModel
       .find({ quiz: quizId, user: userId })
       .sort({ submittedAt: -1 });
+    if (attempts.length) return attempts;
+    return memoryAttempts
+      .filter((a) => a.quiz === quizId && a.user === userId)
+      .sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
   };
 
   return {

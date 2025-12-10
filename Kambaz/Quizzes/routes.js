@@ -1,6 +1,4 @@
 import QuizzesDao from "./dao.js";
-import EnrollmentModel from "../Enrollments/model.js";
-import CourseModel from "../Courses/model.js";
 
 export default function QuizzesRoutes(app) {
   const dao = QuizzesDao();
@@ -26,30 +24,6 @@ export default function QuizzesRoutes(app) {
 
   const findQuizzesForCourse = async (req, res) => {
     const { courseId } = req.params;
-    const currentUser = req.session["currentUser"];
-    if (!currentUser) {
-      res.sendStatus(401);
-      return;
-    }
-    if (currentUser.role !== "FACULTY" && currentUser.role !== "ADMIN") {
-      const enrollment = await EnrollmentModel.findOne({
-        course: courseId,
-        user: currentUser._id,
-      });
-      if (!enrollment) {
-        res.sendStatus(403);
-        return;
-      }
-    } else {
-      const course = await CourseModel.findById(courseId);
-      if (course && course.owner && course.owner !== currentUser._id) {
-        // allow admins; for faculty ensure ownership
-        if (currentUser.role !== "ADMIN") {
-          res.sendStatus(403);
-          return;
-        }
-      }
-    }
     const quizzes = await dao.findQuizzesForCourse(courseId);
     res.json(quizzes);
   };
